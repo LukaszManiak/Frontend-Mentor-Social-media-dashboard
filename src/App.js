@@ -62,13 +62,14 @@ function App() {
     <div className="App">
       <HeaderSection />
       <Followers />
+      <OverviewToday />
     </div>
   );
 }
 
 function HeaderSection() {
   return (
-    <div>
+    <div className="header">
       <div className="left-header">
         <h1>Social Media Dashboard</h1>
         <p>Total followers: {totalFollowers}</p>
@@ -92,23 +93,121 @@ function Followers() {
 
 function OverviewToday() {
   return (
-    <div>
+    <>
       <h2>Overview - Today</h2>
-    </div>
+      <div className="todays-overview-container">
+        {socialStats.map((s) => (
+          <OverviewContainer social={s} />
+        ))}
+      </div>
+    </>
   );
 }
 
 function FollowersBox({ social }) {
   return (
     <div className="followers-box">
-      <p>{social.title}</p>
+      <div className="followers-box-header">
+        {social.title === "twitter" && (
+          <img src={iconFacebook} alt="facebook logo" />
+        )}
+        {social.title === "facebook" && (
+          <img src={iconFacebook} alt="facebook logo" />
+        )}
+        {social.title === "instagram" && (
+          <img src={iconFacebook} alt="facebook logo" />
+        )}
+        {social.title === "youtube" && (
+          <img src={iconFacebook} alt="facebook logo" />
+        )}
+        <p>{social.nick}</p>
+      </div>
+      <div className="">
+        <p>{social.followerCount}</p>
+        <p>{social.title !== "youtube" ? "FOLLOWERS" : "SUBSCRIBERS"}</p>
+      </div>
+
+      <div>
+        <img src={social.todayStats > 0 ? iconUp : iconDown} alt="arrow" />
+        <p className={social.todayStats > 0 ? "positive" : "negative"}>
+          {social.todayStats} Today
+        </p>
+      </div>
     </div>
   );
 }
 
-function OverviewContainer() {
-  return <div></div>;
+function OverviewContainer({ social }) {
+  return (
+    <div className="overview-container">
+      <OverviewViews social={social} />
+      <OverviewLikes social={social} />
+    </div>
+  );
 }
-function OverviewViews() {}
-function OverviewLikes() {}
+function OverviewViews({ social }) {
+  return (
+    <div className="overview-views">
+      {social.title === "youtube" && (
+        <div className="overview-view-box-header">
+          <p>Total Views</p>
+          <img src={iconYoutube} alt="logo" />
+        </div>
+      )}
+      {social.title === "facebook" && (
+        <div>
+          <p>Page Views</p>
+          <img src={iconFacebook} alt="logo" />
+        </div>
+      )}
+      {social.title === "instagram" && (
+        <div>
+          <p>Profile Views</p>
+          <img src={iconInstagram} alt="logo" />
+        </div>
+      )}
+      {social.title === "twitter" && (
+        <div>
+          <p>Retweets</p>
+          <img src={iconTwitter} alt="logo" />
+        </div>
+      )}
+
+      <div>
+        <p>{social.pageViews}</p>
+
+        <div>
+          <img src={social.todayStats > 0 ? iconUp : iconDown} alt="arrow" />
+          <p className={social.todayStats > 0 ? "positive" : "negative"}>
+            {social.todayViews}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+function OverviewLikes({ social }) {
+  return (
+    <div className="overview-likes">
+      <div className="">
+        <p>Likes</p>
+        {social.title === "youtube" && <img src={iconYoutube} alt="logo" />}
+        {social.title === "facebook" && <img src={iconFacebook} alt="logo" />}
+        {social.title === "instagram" && <img src={iconInstagram} alt="logo" />}
+        {social.title === "twitter" && <img src={iconTwitter} alt="logo" />}
+      </div>
+
+      <div>
+        <p>{social.pageLikes}</p>
+
+        <div>
+          <img src={social.todayStats > 0 ? iconUp : iconDown} alt="arrow" />
+          <p className={social.todayStats > 0 ? "positive" : "negative"}>
+            {social.todayLikes}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
 export default App;
