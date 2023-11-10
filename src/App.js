@@ -59,7 +59,7 @@ function App() {
   console.log(totalFollowers);
 
   return (
-    <div className="App">
+    <div className="app">
       <HeaderSection />
       <Followers />
       <OverviewToday />
@@ -85,7 +85,7 @@ function Followers() {
   return (
     <div className="followers-stats">
       {socialStats.map((s) => (
-        <FollowersBox social={s} />
+        <FollowersBox key={s.title} social={s} />
       ))}
     </div>
   );
@@ -97,7 +97,7 @@ function OverviewToday() {
       <h2>Overview - Today</h2>
       <div className="todays-overview-container">
         {socialStats.map((s) => (
-          <OverviewContainer social={s} />
+          <OverviewContainer key={s.title} social={s} />
         ))}
       </div>
     </>
@@ -106,19 +106,19 @@ function OverviewToday() {
 
 function FollowersBox({ social }) {
   return (
-    <div className="followers-box">
+    <div className={`followers-box ${social.title}`}>
       <div className="followers-box-header">
         {social.title === "twitter" && (
-          <img src={iconFacebook} alt="facebook logo" />
+          <img src={iconTwitter} alt="twitter logo" />
         )}
         {social.title === "facebook" && (
           <img src={iconFacebook} alt="facebook logo" />
         )}
         {social.title === "instagram" && (
-          <img src={iconFacebook} alt="facebook logo" />
+          <img src={iconInstagram} alt="instagram logo" />
         )}
         {social.title === "youtube" && (
-          <img src={iconFacebook} alt="facebook logo" />
+          <img src={iconYoutube} alt="youtube logo" />
         )}
         <p>{social.nick}</p>
       </div>
@@ -127,7 +127,7 @@ function FollowersBox({ social }) {
         <p>{social.title !== "youtube" ? "FOLLOWERS" : "SUBSCRIBERS"}</p>
       </div>
 
-      <div>
+      <div className="percent-stats">
         <img src={social.todayStats > 0 ? iconUp : iconDown} alt="arrow" />
         <p className={social.todayStats > 0 ? "positive" : "negative"}>
           {social.todayStats} Today
@@ -148,35 +148,37 @@ function OverviewContainer({ social }) {
 function OverviewViews({ social }) {
   return (
     <div className="overview-views">
-      {social.title === "youtube" && (
-        <div className="overview-view-box-header">
-          <p>Total Views</p>
-          <img src={iconYoutube} alt="logo" />
-        </div>
-      )}
-      {social.title === "facebook" && (
-        <div>
-          <p>Page Views</p>
-          <img src={iconFacebook} alt="logo" />
-        </div>
-      )}
-      {social.title === "instagram" && (
-        <div>
-          <p>Profile Views</p>
-          <img src={iconInstagram} alt="logo" />
-        </div>
-      )}
-      {social.title === "twitter" && (
-        <div>
-          <p>Retweets</p>
-          <img src={iconTwitter} alt="logo" />
-        </div>
-      )}
+      <div className="todays-stats">
+        {social.title === "youtube" && (
+          <>
+            <p>Total Views</p>
+            <img src={iconYoutube} alt="logo" />
+          </>
+        )}
+        {social.title === "facebook" && (
+          <>
+            <p>Page Views</p>
+            <img src={iconFacebook} alt="logo" />
+          </>
+        )}
+        {social.title === "instagram" && (
+          <>
+            <p>Profile Views</p>
+            <img src={iconInstagram} alt="logo" />
+          </>
+        )}
+        {social.title === "twitter" && (
+          <>
+            <p>Retweets</p>
+            <img src={iconTwitter} alt="logo" />
+          </>
+        )}
+      </div>
 
-      <div>
+      <div className="todays-stats">
         <p>{social.pageViews}</p>
 
-        <div>
+        <div className="percent-stats">
           <img src={social.todayStats > 0 ? iconUp : iconDown} alt="arrow" />
           <p className={social.todayStats > 0 ? "positive" : "negative"}>
             {social.todayViews}
@@ -189,7 +191,7 @@ function OverviewViews({ social }) {
 function OverviewLikes({ social }) {
   return (
     <div className="overview-likes">
-      <div className="">
+      <div className="todays-stats">
         <p>Likes</p>
         {social.title === "youtube" && <img src={iconYoutube} alt="logo" />}
         {social.title === "facebook" && <img src={iconFacebook} alt="logo" />}
@@ -197,10 +199,10 @@ function OverviewLikes({ social }) {
         {social.title === "twitter" && <img src={iconTwitter} alt="logo" />}
       </div>
 
-      <div>
+      <div className="todays-stats">
         <p>{social.pageLikes}</p>
 
-        <div>
+        <div className="percent-stats">
           <img src={social.todayStats > 0 ? iconUp : iconDown} alt="arrow" />
           <p className={social.todayStats > 0 ? "positive" : "negative"}>
             {social.todayLikes}

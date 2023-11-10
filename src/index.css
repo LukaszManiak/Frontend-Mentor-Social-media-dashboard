@@ -18,7 +18,7 @@
 
   /* dark theme */
   --veryDarkBlue: hsl(230, 17%, 14%);
-  --veryDarkBlue: hsl(232, 19%, 15%);
+
   --darkDesaturatedBlue: hsl(228, 28%, 20%);
   --desaturatedBlue: hsl(228, 34%, 66%);
   --white: hsl(0, 0%, 100%);
@@ -44,6 +44,21 @@ html {
   font-size: 14px;
 }
 
+.app {
+  width: 100%;
+  padding: 7% 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  justify-content: center;
+}
+
+body {
+  background-color: var(--veryDarkBlue);
+}
+
 .header {
   width: 80%;
   display: flex;
@@ -55,21 +70,55 @@ html {
   width: 80%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .followers-box {
-  width: 30%;
+  width: 18%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 20px;
+  border-radius: 0.7rem;
+  padding: 2rem;
+  background-color: var(--darkDesaturatedBlue);
 
   text-align: center;
   justify-content: space-between;
 }
 
+.facebook {
+  border-top: 3px solid var(--facebook);
+}
+.instagram {
+  border-top: 3px solid;
+  border-image: linear-gradient(to right, #fdc468, #df4996) 1 0 0 0;
+}
+.youtube {
+  border-top: 3px solid var(--youtube);
+}
+.twitter {
+  border-top: 3px solid var(--twitter);
+}
+
+.percent-stats {
+  display: flex;
+  width: auto;
+}
+.percent-stats img {
+  object-fit: scale-down;
+}
+
 .followers-box-header,
 .overview-view-box-header {
   display: flex;
+}
+
+.todays-stats {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .todays-overview-container {
@@ -78,15 +127,29 @@ html {
 }
 
 .overview-container {
-  width: 40%;
+  width: 50%;
+  height: auto;
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
 }
 
 .overview-views,
 .overview-likes {
-  width: 45%;
+  width: 100%;
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  border-radius: 0.7rem;
+  padding: 2rem;
+  background-color: var(--darkDesaturatedBlue);
+
+  text-align: center;
+  justify-content: space-between;
 }
 
 .positive {
@@ -94,4 +157,9 @@ html {
 }
 .negative {
   color: var(--brightRed);
+}
+
+h2 {
+  align-self: flex-start;
+  margin-left: 10%;
 }
