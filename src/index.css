@@ -47,6 +47,7 @@ html {
 
 .app {
   width: 100%;
+
   padding: 7% 0;
 
   display: flex;
@@ -59,12 +60,24 @@ html {
 body {
   background-color: var(--veryDarkBlue);
 }
-
-.header {
+body .header {
   width: 80%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.dark-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dark-btn {
+  background-color: transparent;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
 }
 
 .followers-stats {
@@ -82,12 +95,20 @@ body {
   gap: 20px;
   border-radius: 0.7rem;
   padding: 2rem;
-  background-color: var(--darkDesaturatedBlue);
 
   text-align: center;
   justify-content: space-between;
 
   transition: all ease-in-out 0.15s;
+}
+
+.followers-box.dark {
+  background-color: var(--darkDesaturatedBlue);
+  color: white;
+}
+.followers-box.bright {
+  background-color: var(--toggle);
+  color: var(--darkDesaturatedBlue);
 }
 
 .followers-box:hover {
@@ -145,12 +166,12 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .overview-views,
 .overview-likes {
-  width: 40%;
+  width: 35%;
   height: 70%;
   display: flex;
   flex-direction: column;
@@ -158,12 +179,22 @@ body {
 
   border-radius: 0.7rem;
   padding: 2rem;
-  background-color: var(--darkDesaturatedBlue);
 
   text-align: center;
   justify-content: space-between;
 
   transition: all ease-in-out 0.15s;
+}
+
+.overview-views.bright,
+.overview-likes.bright {
+  background-color: var(--toggle);
+  color: var(--darkDesaturatedBlue);
+}
+.overview-views.dark,
+.overview-likes.dark {
+  background-color: var(--darkDesaturatedBlue);
+  color: white;
 }
 
 .overview-views:hover,
@@ -184,6 +215,11 @@ h2 {
   margin-left: 10%;
 }
 
+.attribution-p {
+  width: 80%;
+  text-align: center;
+}
+
 .attribution-link {
   color: var(--white);
   text-decoration: none;
@@ -192,4 +228,82 @@ h2 {
 .attribution-link:hover {
   color: var(--toggle);
   text-decoration: underline;
+}
+
+@media (max-width: 1368px) {
+  .header {
+    width: 95%;
+  }
+  .followers-stats {
+    width: 95%;
+  }
+  .todays-stats {
+    width: 95%;
+  }
+  .todays-overview-container {
+    width: 95%;
+  }
+}
+
+@media (max-width: 968px) {
+  .header {
+    width: 95%;
+  }
+  .followers-stats {
+    flex-wrap: wrap;
+  }
+  .followers-box {
+    width: 40%;
+    margin-bottom: 20px;
+  }
+  .todays-stats {
+    width: 95%;
+  }
+  .todays-overview-container {
+    width: 95%;
+  }
+  .overview-views,
+  .overview-likes {
+    width: 30%;
+  }
+}
+@media (max-width: 668px) {
+  .followers-stats {
+    flex-direction: column;
+  }
+  .followers-box {
+    width: 80%;
+    margin-bottom: 20px;
+  }
+  .todays-stats {
+    width: 95%;
+  }
+  .todays-overview-container {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+  }
+  .overview-views,
+  .overview-likes {
+    width: 35%;
+  }
+}
+
+@media (max-width: 468px) {
+  .todays-overview-container {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .overview-container {
+    flex-direction: column;
+  }
+  .overview-views,
+  .overview-likes {
+    width: 80%;
+  }
+  .overview-views {
+    margin-bottom: 20px;
+  }
 }

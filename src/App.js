@@ -56,20 +56,28 @@ const totalFollowers = socialStats
   .reduce((a, b) => (a += b));
 
 function App() {
-  console.log(totalFollowers);
+  const [dark, setIsDark] = useState("bright");
+
+  console.log(dark);
+
+  function handleDarkChange() {
+    setIsDark(dark === "bright" ? "dark" : "bright");
+
+    console.log(dark);
+  }
 
   return (
     <div className="app">
-      <HeaderSection />
-      <Followers />
-      <OverviewToday />
+      <HeaderSection dark={dark} onDarkChange={handleDarkChange} />
+      <Followers dark={dark} />
+      <OverviewToday dark={dark} />
 
-      <AttributionP />
+      <AttributionP dark={dark} />
     </div>
   );
 }
 
-function HeaderSection() {
+function HeaderSection({ dark, onDarkChange }) {
   return (
     <div className="header">
       <div className="left-header">
@@ -77,38 +85,41 @@ function HeaderSection() {
         <p>Total followers: {totalFollowers}</p>
       </div>
 
-      <div>
-        Dark Mode <button type="switch"></button>
+      <div className="dark-button-container">
+        Dark Mode{" "}
+        <button className="dark-btn" onClick={() => onDarkChange()}>
+          {dark === "bright" ? "🌕" : "🌚"}
+        </button>
       </div>
     </div>
   );
 }
-function Followers() {
+function Followers({ dark }) {
   return (
     <div className="followers-stats">
       {socialStats.map((s) => (
-        <FollowersBox key={s.title} social={s} />
+        <FollowersBox dark={dark} key={s.title} social={s} />
       ))}
     </div>
   );
 }
 
-function OverviewToday() {
+function OverviewToday({ dark }) {
   return (
     <>
       <h2>Overview - Today</h2>
       <div className="todays-overview-container">
         {socialStats.map((s) => (
-          <OverviewContainer key={s.title} social={s} />
+          <OverviewContainer dark={dark} key={s.title} social={s} />
         ))}
       </div>
     </>
   );
 }
 
-function FollowersBox({ social }) {
+function FollowersBox({ social, dark }) {
   return (
-    <div className={`followers-box ${social.title}`}>
+    <div className={`followers-box ${social.title} ${dark}`}>
       <div className="followers-box-header">
         {social.title === "twitter" && (
           <img src={iconTwitter} alt="twitter logo" />
@@ -139,17 +150,17 @@ function FollowersBox({ social }) {
   );
 }
 
-function OverviewContainer({ social }) {
+function OverviewContainer({ social, dark }) {
   return (
     <div className="overview-container">
-      <OverviewViews social={social} />
-      <OverviewLikes social={social} />
+      <OverviewViews dark={dark} social={social} />
+      <OverviewLikes dark={dark} social={social} />
     </div>
   );
 }
-function OverviewViews({ social }) {
+function OverviewViews({ social, dark }) {
   return (
-    <div className="overview-views">
+    <div className={`overview-views ${dark}`}>
       <div className="todays-stats">
         {social.title === "youtube" && (
           <>
@@ -190,9 +201,9 @@ function OverviewViews({ social }) {
     </div>
   );
 }
-function OverviewLikes({ social }) {
+function OverviewLikes({ social, dark }) {
   return (
-    <div className="overview-likes">
+    <div className={`overview-likes  ${dark}`}>
       <div className="todays-stats">
         <p>Likes</p>
         {social.title === "youtube" && <img src={iconYoutube} alt="logo" />}
