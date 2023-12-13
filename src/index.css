@@ -29,13 +29,12 @@
   --veryPaleBlue: hsl(225, 100%, 98%);
   --lightgrayishblue: hsl(227, 47%, 96%);
   --darkGrayishBlue: hsl(228, 12%, 44%);
-  --veryDarkBlue: hsl(230, 17%, 14%);
 }
 
 html,
 * {
   font-family: "Inter", sans-serif;
-  color: var(--white);
+
   margin: 0;
   padding: 0;
 }
@@ -58,9 +57,36 @@ html {
 }
 
 body {
-  background-color: var(--veryDarkBlue);
+  background-color: var(--white);
+  color: var(--veryDarkBlue);
+
+  transition: all ease-in-out 0.15s;
 }
-body .header {
+body.dark {
+  background-color: var(--veryDarkBlue);
+  color: var(--white);
+}
+
+.header-bg {
+  width: 100%;
+  height: 27%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: all ease-in-out 0.15s;
+  z-index: -10;
+
+  background-color: var(--darkDesaturatedBlue);
+}
+
+.header-bg.dark {
+  background-color: var(--darkDesaturatedBlue);
+}
+.header-bg.bright {
+  background-color: var(--lightgrayishblue);
+}
+
+.header {
   width: 80%;
   display: flex;
   justify-content: space-between;
@@ -95,7 +121,7 @@ body .header {
   gap: 20px;
   border-radius: 0.7rem;
   padding: 2rem;
-
+  cursor: pointer;
   text-align: center;
   justify-content: space-between;
 
@@ -107,12 +133,14 @@ body .header {
   color: white;
 }
 .followers-box.bright {
-  background-color: var(--toggle);
+  background-color: var(--veryPaleBlue);
   color: var(--darkDesaturatedBlue);
 }
 
-.followers-box:hover {
-  cursor: pointer;
+.followers-box.bright:hover {
+  background-color: var(--toggle);
+}
+.followers-box.dark:hover {
   background-color: var(--darkGrayishBlue);
 }
 
@@ -179,7 +207,7 @@ body .header {
 
   border-radius: 0.7rem;
   padding: 2rem;
-
+  cursor: pointer;
   text-align: center;
   justify-content: space-between;
 
@@ -188,7 +216,8 @@ body .header {
 
 .overview-views.bright,
 .overview-likes.bright {
-  background-color: var(--toggle);
+  background-color: var(--veryPaleBlue);
+
   color: var(--darkDesaturatedBlue);
 }
 .overview-views.dark,
@@ -197,9 +226,12 @@ body .header {
   color: white;
 }
 
-.overview-views:hover,
-.overview-likes:hover {
-  cursor: pointer;
+.overview-views.bright:hover,
+.overview-likes.bright:hover {
+  background-color: var(--toggle);
+}
+.overview-views.dark:hover,
+.overview-likes.dark:hover {
   background-color: var(--darkGrayishBlue);
 }
 
@@ -225,8 +257,15 @@ h2 {
   text-decoration: none;
   transition: all ease-in-out 0.15s;
 }
-.attribution-link:hover {
-  color: var(--toggle);
+.attribution-link.dark {
+  color: var(--white);
+}
+.attribution-link.bright {
+  color: var(--veryDarkBlue);
+}
+.attribution-link.bright:hover,
+.attribution-link.dark:hover {
+  color: var(--limeGreen);
   text-decoration: underline;
 }
 

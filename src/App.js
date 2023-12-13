@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import iconDown from "./images/icon-down.svg";
 import iconUp from "./images/icon-up.svg";
@@ -58,16 +58,23 @@ const totalFollowers = socialStats
 function App() {
   const [dark, setIsDark] = useState("bright");
 
-  console.log(dark);
-
+  const bodyEl = useRef(document.getElementsByTagName("body"));
   function handleDarkChange() {
     setIsDark(dark === "bright" ? "dark" : "bright");
 
     console.log(dark);
   }
 
+  useEffect(
+    function () {
+      bodyEl.current[0].classList.toggle("dark");
+    },
+    [dark]
+  );
+
   return (
     <div className="app">
+      <div className={`header-bg ${dark}`}></div>
       <HeaderSection dark={dark} onDarkChange={handleDarkChange} />
       <Followers dark={dark} />
       <OverviewToday dark={dark} />
@@ -136,14 +143,16 @@ function FollowersBox({ social, dark }) {
         <p>{social.nick}</p>
       </div>
       <div className="">
-        <p>{social.followerCount}</p>
+        <p>
+          <b>{social.followerCount}</b>
+        </p>
         <p>{social.title !== "youtube" ? "FOLLOWERS" : "SUBSCRIBERS"}</p>
       </div>
 
       <div className="percent-stats">
         <img src={social.todayStats > 0 ? iconUp : iconDown} alt="arrow" />
         <p className={social.todayStats > 0 ? "positive" : "negative"}>
-          {social.todayStats} Today
+          <b>{social.todayStats} Today</b>
         </p>
       </div>
     </div>
@@ -189,12 +198,14 @@ function OverviewViews({ social, dark }) {
       </div>
 
       <div className="todays-stats">
-        <p>{social.pageViews}</p>
+        <p>
+          <b>{social.pageViews}</b>
+        </p>
 
         <div className="percent-stats">
           <img src={social.todayStats > 0 ? iconUp : iconDown} alt="arrow" />
           <p className={social.todayStats > 0 ? "positive" : "negative"}>
-            {social.todayViews}
+            <b> {social.todayViews}</b>
           </p>
         </div>
       </div>
@@ -213,12 +224,14 @@ function OverviewLikes({ social, dark }) {
       </div>
 
       <div className="todays-stats">
-        <p>{social.pageLikes}</p>
+        <p>
+          <b>{social.pageLikes}</b>
+        </p>
 
         <div className="percent-stats">
           <img src={social.todayStats > 0 ? iconUp : iconDown} alt="arrow" />
           <p className={social.todayStats > 0 ? "positive" : "negative"}>
-            {social.todayLikes}
+            <b>{social.todayLikes}</b>
           </p>
         </div>
       </div>
@@ -226,19 +239,19 @@ function OverviewLikes({ social, dark }) {
   );
 }
 
-function AttributionP() {
+function AttributionP({ dark }) {
   return (
     <p className="attribution-p">
       Challenge by{" "}
       <a
-        className="attribution-link"
+        className={`attribution-link ${dark}`}
         href="https://www.frontendmentor.io/challenges/intro-section-with-dropdown-navigation-ryaPetHE5"
       >
         Frontend Mentor
       </a>
       . Coded by{" "}
       <a
-        className="attribution-link"
+        className={`attribution-link ${dark}`}
         href="https://github.com/LukaszManiak"
         role="button"
       >
